@@ -77,7 +77,7 @@ export default function Home() {
             className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? 'opacity-100' : 'opacity-0'
               }`}
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-royal-900/80 to-royal-800/60 z-10" />
+            <div className="absolute inset-0 bg-gradienreadt-to-r from-royal-900/80 to-royal-800/60 z-10" />
             <img
               src={image.url}
               alt={image.title}
