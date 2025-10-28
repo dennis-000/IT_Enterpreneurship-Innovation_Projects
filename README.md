@@ -650,6 +650,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Dennis**
 - GitHub: [@dennis-000](https://github.com/dennis-000)
 
+## 👨‍💻 Collaborators
+**Theo**
+- GitHub: [@dennis-000](https://github.com/Theo-Sam)
+
 ---
 
 ## 🙏 Acknowledgments
@@ -664,7 +668,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-For support, email your-email@example.com or open an issue in the repository.
+For support, email asiedudennis30@example.com or open an issue in the repository.
 
 ---
 
