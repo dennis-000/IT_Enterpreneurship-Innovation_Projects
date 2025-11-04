@@ -50,12 +50,11 @@ export default function Navbar() {
                 key={item.id}
                 onClick={() => handleNavClick(item.path)}
                 className={`px-4 py-2 rounded-xl transition-all duration-300 font-medium ${item.id === 'contact'
-                  ? 'text-white font-bold px-6 py-3 rounded-full shadow-lg'
+                  ? 'bg-tomato-500 hover:bg-tomato-600 text-white font-bold px-6 py-3 rounded-full shadow-lg'
                   : isCurrentPage(item.path)
                     ? 'bg-royal-600 text-white shadow-lg'
                     : 'text-gray-700 hover:bg-royal-50 hover:text-royal-700'
                   }`}
-                style={item.id === 'contact' ? { backgroundColor: '#f1592a' } : {}}
               >
                 {item.id === 'contact' ? 'Contact Us' : item.label}
               </button>
@@ -83,12 +82,11 @@ export default function Navbar() {
                 key={item.id}
                 onClick={() => handleNavClick(item.path)}
                 className={`w-full text-left px-4 py-3 rounded-xl transition-all duration-300 font-medium ${item.id === 'contact'
-                  ? 'text-white font-bold px-6 py-3 rounded-full shadow-lg text-center'
+                  ? 'bg-tomato-500 hover:bg-tomato-600 text-white font-bold px-6 py-3 rounded-full shadow-lg text-center'
                   : isCurrentPage(item.path)
                     ? 'bg-royal-600 text-white shadow-lg'
                     : 'text-gray-700 hover:bg-royal-50 hover:text-royal-700'
                   }`}
-                style={item.id === 'contact' ? { backgroundColor: '#f1592a' } : {}}
               >
                 {item.id === 'contact' ? 'Contact Us' : item.label}
               </button>

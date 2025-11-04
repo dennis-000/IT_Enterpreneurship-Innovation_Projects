@@ -112,13 +112,17 @@ export default function Home() {
         ))}
 
         <button
+          type="button"
           onClick={prevSlide}
+          aria-label="Show previous slide"
           className="absolute left-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 rounded-full transition-all duration-300 hover:scale-110"
         >
           <ChevronLeft className="w-6 h-6 text-white" />
         </button>
         <button
+          type="button"
           onClick={nextSlide}
+          aria-label="Show next slide"
           className="absolute right-4 top-1/2 -translate-y-1/2 z-30 bg-white/20 hover:bg-white/30 backdrop-blur-sm p-3 rounded-full transition-all duration-300 hover:scale-110"
         >
           <ChevronRight className="w-6 h-6 text-white" />
@@ -128,7 +132,10 @@ export default function Home() {
           {carouselImages.map((_, index) => (
             <button
               key={index}
+              type="button"
               onClick={() => setCurrentSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+              aria-pressed={index === currentSlide ? 'true' : 'false'}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide ? 'bg-tomato-500 w-8' : 'bg-white/50'
                 }`}
             />

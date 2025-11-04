@@ -1,60 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import { Calendar, MapPin, Clock, Newspaper } from 'lucide-react';
 import SectionHeader from '../components/SectionHeader';
-import { supabase } from '../lib/supabase';
-
-interface NewsPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  image_url: string | null;
-  published_date: string;
-}
-
-interface Event {
-  id: string;
-  title: string;
-  description: string;
-  event_date: string;
-  location: string;
-  image_url: string | null;
-}
+import { EventItem, NewsPost, useAppData } from '../context/AppDataContext';
 
 export default function NewsEvents() {
-  const [news, setNews] = useState<NewsPost[]>([]);
-  const [events, setEvents] = useState<Event[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { news, events } = useAppData();
   const [selectedNews, setSelectedNews] = useState<NewsPost | null>(null);
 
-  useEffect(() => {
-    fetchNewsAndEvents();
-  }, []);
+  const sortedNews = useMemo(
+    () => [...news].sort((a, b) => new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()),
+    [news]
+  );
 
-  const fetchNewsAndEvents = async () => {
-    try {
-      const [newsResponse, eventsResponse] = await Promise.all([
-        supabase
-          .from('news_posts')
-          .select('*')
-          .order('published_date', { ascending: false })
-          .limit(6),
-        supabase
-          .from('events')
-          .select('*')
-          .gte('event_date', new Date().toISOString().split('T')[0])
-          .order('event_date', { ascending: true })
-          .limit(6)
-      ]);
-
-      if (newsResponse.data) setNews(newsResponse.data);
-      if (eventsResponse.data) setEvents(eventsResponse.data);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const upcomingEvents = useMemo(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return [...events]
+      .filter((event) => new Date(event.eventDate).getTime() >= today.getTime())
+      .sort((a, b) => new Date(a.eventDate).getTime() - new Date(b.eventDate).getTime());
+  }, [events]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -87,23 +51,18 @@ export default function NewsEvents() {
             subtitle="Recent updates and announcements from our school"
           />
 
-          {loading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-royal-600 border-t-transparent"></div>
-            </div>
-          ) : (
+          {sortedNews.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {news.map((post, index) => (
+              {sortedNews.map((post) => (
                 <div
                   key={post.id}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 cursor-pointer animate-scale-in"
-                  style={{ animationDelay: `${index * 0.1}s` }}
                   onClick={() => setSelectedNews(post)}
                 >
-                  {post.image_url && (
+                  {post.imageUrl && (
                     <div className="h-48 overflow-hidden">
                       <img
-                        src={post.image_url}
+                        src={post.imageUrl}
                         alt={post.title}
                         className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                       />
@@ -112,7 +71,7 @@ export default function NewsEvents() {
                   <div className="p-6">
                     <div className="flex items-center text-sm text-gray-500 mb-3">
                       <Calendar className="w-4 h-4 mr-2" />
-                      {formatDate(post.published_date)}
+                      {formatDate(post.publishedDate)}
                     </div>
                     <h3 className="text-xl font-bold text-royal-800 mb-3 line-clamp-2">
                       {post.title}
@@ -126,6 +85,10 @@ export default function NewsEvents() {
                 </div>
               ))}
             </div>
+          ) : (
+            <div className="flex justify-center items-center py-12 text-gray-500">
+              No news updates have been published yet.
+            </div>
           )}
         </div>
       </section>
@@ -137,36 +100,31 @@ export default function NewsEvents() {
             subtitle="Join us for these exciting upcoming activities"
           />
 
-          {loading ? (
-            <div className="flex justify-center items-center py-12">
-              <div className="animate-spin rounded-full h-12 w-12 border-4 border-royal-600 border-t-transparent"></div>
-            </div>
-          ) : events.length > 0 ? (
+          {upcomingEvents.length > 0 ? (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              {events.map((event, index) => (
+              {upcomingEvents.map((event: EventItem) => (
                 <div
                   key={event.id}
                   className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 border-royal-100 animate-slide-up"
-                  style={{ animationDelay: `${index * 0.1}s` }}
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3">
-                    {event.image_url && (
+                    {event.imageUrl && (
                       <div className="md:col-span-1 h-48 md:h-full overflow-hidden">
                         <img
-                          src={event.image_url}
+                          src={event.imageUrl}
                           alt={event.title}
                           className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
                         />
                       </div>
                     )}
-                    <div className={`p-6 ${event.image_url ? 'md:col-span-2' : 'md:col-span-3'}`}>
+                    <div className={`p-6 ${event.imageUrl ? 'md:col-span-2' : 'md:col-span-3'}`}>
                       <div className="flex items-center justify-between mb-4">
                         <div className="bg-tomato-100 px-4 py-2 rounded-xl">
                           <p className="text-tomato-700 font-bold text-lg">
-                            {new Date(event.event_date).getDate()}
+                            {new Date(event.eventDate).getDate()}
                           </p>
                           <p className="text-tomato-600 text-sm">
-                            {new Date(event.event_date).toLocaleDateString('en-US', { month: 'short' })}
+                            {new Date(event.eventDate).toLocaleDateString('en-US', { month: 'short' })}
                           </p>
                         </div>
                       </div>
@@ -175,7 +133,7 @@ export default function NewsEvents() {
                       <div className="space-y-2">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="w-5 h-5 mr-3 text-royal-600" />
-                          {formatDate(event.event_date)}
+                          {formatDate(event.eventDate)}
                         </div>
                         <div className="flex items-center text-gray-600">
                           <MapPin className="w-5 h-5 mr-3 text-royal-600" />
@@ -205,10 +163,10 @@ export default function NewsEvents() {
             className="bg-white rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto animate-scale-in"
             onClick={(e) => e.stopPropagation()}
           >
-            {selectedNews.image_url && (
+            {selectedNews.imageUrl && (
               <div className="h-64 overflow-hidden rounded-t-3xl">
                 <img
-                  src={selectedNews.image_url}
+                  src={selectedNews.imageUrl}
                   alt={selectedNews.title}
                   className="w-full h-full object-cover"
                 />
@@ -217,7 +175,7 @@ export default function NewsEvents() {
             <div className="p-8">
               <div className="flex items-center text-sm text-gray-500 mb-4">
                 <Newspaper className="w-4 h-4 mr-2" />
-                {formatDate(selectedNews.published_date)}
+                {formatDate(selectedNews.publishedDate)}
               </div>
               <h2 className="text-3xl font-bold text-royal-800 mb-6">{selectedNews.title}</h2>
               <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">

@@ -8,15 +8,23 @@ import Admissions from './pages/Admissions';
 import NewsEvents from './pages/NewsEvents';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
-import AdminPortal from './pages/admin/AdminPortal';
+import AdminPortal from './pages/AdminPortal';
 
-function AppContent() {
+function App() {
+  return (
+    <Router>
+      <AppShell />
+    </Router>
+  );
+}
+
+function AppShell() {
   const location = useLocation();
-  const isAdminPage = location.pathname.startsWith('/admin');
+  const isAdminRoute = location.pathname.startsWith('/admin');
 
   return (
     <div className="min-h-screen bg-white">
-      {!isAdminPage && <Navbar />}
+      {!isAdminRoute && <Navbar />}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -29,16 +37,8 @@ function AppContent() {
           <Route path="/admin" element={<AdminPortal />} />
         </Routes>
       </main>
-      {!isAdminPage && <Footer />}
+      {!isAdminRoute && <Footer />}
     </div>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
   );
 }
 

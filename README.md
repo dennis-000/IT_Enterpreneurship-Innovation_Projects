@@ -18,7 +18,6 @@ A modern, full-featured school website and content management system built for *
 - [Installation](#-installation)
 - [Environment Setup](#-environment-setup)
 - [Usage](#-usage)
-- [Admin Portal](#-admin-portal)
 - [Database Schema](#-database-schema)
 - [Pages Overview](#-pages-overview)
 - [Contributing](#-contributing)
@@ -31,6 +30,7 @@ A modern, full-featured school website and content management system built for *
 ### 🌐 Public Website (7 Pages)
 
 1. **Home Page**
+
    - Hero carousel with auto-rotating slides
    - Welcome section with school overview
    - Statistics showcase (Years of Excellence, Student Count, Success Rate)
@@ -38,6 +38,7 @@ A modern, full-featured school website and content management system built for *
    - Call-to-action section
 
 2. **About Us Page**
+
    - Mission statement
    - Vision statement
    - School history (detailed narrative)
@@ -45,6 +46,7 @@ A modern, full-featured school website and content management system built for *
    - Core values display
 
 3. **Academics Page**
+
    - 5 Academic programs (Creche, Nursery, KG, Primary, JHS)
    - Detailed curriculum for each level
    - Key features per program
@@ -52,6 +54,7 @@ A modern, full-featured school website and content management system built for *
    - Academic excellence statistics
 
 4. **Admissions Page**
+
    - 4-step admission process
    - Required documents checklist
    - Online inquiry form
@@ -59,6 +62,7 @@ A modern, full-featured school website and content management system built for *
    - Real-time form submission to database
 
 5. **News & Events Page**
+
    - Latest news posts with images
    - Upcoming events calendar
    - Detailed news article modal
@@ -66,6 +70,7 @@ A modern, full-featured school website and content management system built for *
    - Newsletter subscription
 
 6. **Gallery Page**
+
    - Photo and video gallery
    - Category filtering
    - Media type filtering
@@ -79,71 +84,12 @@ A modern, full-featured school website and content management system built for *
    - Social media links
    - Office hours display
 
-### 🔐 Admin Portal (Comprehensive CMS)
-
-**Authentication Features:**
-- Secure login system
-- Session persistence (24-hour sessions)
-- Auto-logout on session expiry
-- Protected routes
-
-**Page-Based Management:**
-
-1. **Home Page Manager**
-   - Hero carousel slides (add/edit/delete)
-   - Statistics management
-   - Features management
-   - Welcome section editing
-   - CTA section editing
-
-2. **About Page Manager**
-   - Mission/Vision text editing
-   - School history management (3 paragraphs)
-   - Staff/Leadership (add/edit/delete with photos)
-   - Core values management
-
-3. **Academics Page Manager**
-   - Academic programs (add/edit/delete)
-   - Features & curriculum lists
-   - Facilities management
-   - Excellence stats editing
-
-4. **Admissions Page Manager**
-   - Admission steps management
-   - Required documents list
-   - Contact info editing
-   - Inquiry management (view/export)
-
-5. **News & Events Manager**
-   - News posts (create/edit/delete)
-   - Events management
-   - Image upload support
-   - Publication date control
-
-6. **Gallery Manager**
-   - Photo/video upload
-   - Category assignment
-   - Bulk operations
-   - Media type filtering
-
-7. **Contact Page Manager**
-   - Contact information editing
-   - Social media links management
-   - Inquiry viewing and management
-   - CSV export functionality
-
-**Dashboard Features:**
-- Real-time statistics
-- Recent contact inquiries
-- Quick action buttons
-- Notification system
-- Mobile-responsive design
-
 ---
 
 ## 🛠 Tech Stack
 
 ### Frontend
+
 - **React 18.3.1** - UI library
 - **TypeScript 5.5.3** - Type safety
 - **Vite 5.4.2** - Build tool & dev server
@@ -152,6 +98,7 @@ A modern, full-featured school website and content management system built for *
 - **Lucide React 0.344.0** - Beautiful icon library
 
 ### Backend & Database
+
 - **Supabase 2.57.4** - Backend-as-a-Service
   - PostgreSQL database
   - Real-time subscriptions
@@ -159,6 +106,7 @@ A modern, full-featured school website and content management system built for *
   - Storage (for future image uploads)
 
 ### Development Tools
+
 - **ESLint** - Code linting
 - **PostCSS** - CSS processing
 - **Autoprefixer** - CSS vendor prefixes
@@ -171,25 +119,10 @@ A modern, full-featured school website and content management system built for *
 fountaingate/
 ├── src/
 │   ├── components/
-│   │   ├── admin/
-│   │   │   ├── pages/
-│   │   │   │   ├── HomePageManager.tsx
-│   │   │   │   ├── AboutPageManager.tsx
-│   │   │   │   ├── AcademicsPageManager.tsx
-│   │   │   │   ├── AdmissionsPageManager.tsx
-│   │   │   │   └── ContactPageManager.tsx
-│   │   │   ├── AdmissionsManager.tsx
-│   │   │   ├── GalleryManager.tsx
-│   │   │   ├── NewsEventsManager.tsx
-│   │   │   └── NotificationSystem.tsx
 │   │   ├── Footer.tsx
 │   │   ├── Navbar.tsx
 │   │   └── SectionHeader.tsx
 │   ├── pages/
-│   │   ├── admin/
-│   │   │   ├── AdminDashboard.tsx
-│   │   │   ├── AdminLogin.tsx
-│   │   │   └── AdminPortal.tsx
 │   │   ├── Home.tsx
 │   │   ├── About.tsx
 │   │   ├── Academics.tsx
@@ -214,6 +147,7 @@ fountaingate/
 ## 🚀 Installation
 
 ### Prerequisites
+
 - Node.js 16+ and npm/yarn
 - Git
 - Supabase account (free tier available)
@@ -514,55 +448,27 @@ yarn typecheck
 
 ---
 
-## 🔐 Admin Portal
-
-### Access the Admin Portal
-
-Navigate to: `http://localhost:5173/admin`
-
-### Demo Credentials
-
-- **Username:** `admin`
-- **Password:** `admin123`
-
-### Features
-
-- **Session Duration:** 24 hours
-- **Auto-logout:** On session expiry
-- **Persistent Sessions:** Survives page refresh
-- **Secure:** LocalStorage-based session management
-
-### Admin Dashboard
-
-- Real-time statistics for all content
-- Recent contact inquiries
-- Quick action buttons
-- Mobile-responsive interface
-- Notification system
-
----
-
-## 🗄 Database Schema
+## Database Schema
 
 ### Tables Overview
 
-| Table | Purpose | Records |
-|-------|---------|---------|
-| `carousel_slides` | Homepage hero carousel | Slides |
-| `homepage_stats` | Statistics display | Stats |
-| `homepage_features` | Feature highlights | Features |
-| `core_values` | School values | Values |
-| `staff_members` | Leadership team | Staff |
-| `academic_programs` | Programs (Creche-JHS) | Programs |
-| `academic_facilities` | School facilities | Facilities |
-| `admission_steps` | Admission process | Steps |
-| `required_documents` | Document checklist | Documents |
-| `admission_inquiries` | Admission forms | Inquiries |
-| `contact_inquiries` | Contact forms | Messages |
-| `news_posts` | News articles | Posts |
-| `events` | School events | Events |
-| `gallery_items` | Photos & videos | Media |
-| `site_content` | Dynamic content | Settings |
+| Table                 | Purpose                | Records    |
+| --------------------- | ---------------------- | ---------- |
+| `carousel_slides`     | Homepage hero carousel | Slides     |
+| `homepage_stats`      | Statistics display     | Stats      |
+| `homepage_features`   | Feature highlights     | Features   |
+| `core_values`         | School values          | Values     |
+| `staff_members`       | Leadership team        | Staff      |
+| `academic_programs`   | Programs (Creche-JHS)  | Programs   |
+| `academic_facilities` | School facilities      | Facilities |
+| `admission_steps`     | Admission process      | Steps      |
+| `required_documents`  | Document checklist     | Documents  |
+| `admission_inquiries` | Admission forms        | Inquiries  |
+| `contact_inquiries`   | Contact forms          | Messages   |
+| `news_posts`          | News articles          | Posts      |
+| `events`              | School events          | Events     |
+| `gallery_items`       | Photos & videos        | Media      |
+| `site_content`        | Dynamic content        | Settings   |
 
 ---
 
@@ -570,36 +476,22 @@ Navigate to: `http://localhost:5173/admin`
 
 ### Public Pages
 
-| Route | Page | Description |
-|-------|------|-------------|
-| `/` | Home | Landing page with carousel, stats, features |
-| `/about` | About Us | Mission, vision, history, team, values |
-| `/academics` | Academics | Programs, curriculum, facilities, stats |
-| `/admissions` | Admissions | Process, requirements, inquiry form |
-| `/news` | News & Events | Latest news and upcoming events |
-| `/gallery` | Gallery | Photo and video gallery |
-| `/contact` | Contact | Contact form, info, map |
-
-### Admin Pages
-
-| Route | Page | Description |
-|-------|------|-------------|
-| `/admin` | Login | Admin authentication |
-| `/admin` | Dashboard | Statistics & quick actions |
-| `/admin` | Home Manager | Manage homepage content |
-| `/admin` | About Manager | Manage about page content |
-| `/admin` | Academics Manager | Manage academic programs |
-| `/admin` | Admissions Manager | Manage admissions content |
-| `/admin` | News Manager | Manage news posts |
-| `/admin` | Events Manager | Manage school events |
-| `/admin` | Gallery Manager | Manage media gallery |
-| `/admin` | Contact Manager | Manage contact info & inquiries |
+| Route         | Page          | Description                                 |
+| ------------- | ------------- | ------------------------------------------- |
+| `/`           | Home          | Landing page with carousel, stats, features |
+| `/about`      | About Us      | Mission, vision, history, team, values      |
+| `/academics`  | Academics     | Programs, curriculum, facilities, stats     |
+| `/admissions` | Admissions    | Process, requirements, inquiry form         |
+| `/news`       | News & Events | Latest news and upcoming events             |
+| `/gallery`    | Gallery       | Photo and video gallery                     |
+| `/contact`    | Contact       | Contact form, info, map                     |
 
 ---
 
 ## 🎨 Design Features
 
 - **Color Scheme:**
+
   - Primary: Royal Blue (#4169E1)
   - Secondary: Tomato (#F1592A)
   - Neutral: Gray shades
@@ -648,10 +540,13 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Dennis**
+
 - GitHub: [@dennis-000](https://github.com/dennis-000)
 
 ## 👨‍💻 Collaborators
+
 **Theo**
+
 - GitHub: [@dennis-000](https://github.com/Theo-Sam)
 
 ---
